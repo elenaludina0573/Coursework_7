@@ -13,7 +13,6 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -38,8 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'rest_framework_simplejwt',
     'rest_framework',
     'django_filters',
+    'drf_yasg'
     'corsheaders',
     'habits',
     'users',
@@ -60,7 +61,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:8000',
 ]
 CSRF_TRUSTED_ORIGINS = ["https://read-and-write.example.com",
-]
+                        ]
 CORS_ALLOW_ALL_ORIGINS = False
 ROOT_URLCONF = 'config.urls'
 
@@ -87,17 +88,16 @@ REST_FRAMEWORK = {
         'django_filters.rest_framework.DjangoFilterBackend',),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',),
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-
-    ]
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',),
+    'DEFAULT_PAGINATION_CLASS': (
+        'rest_framework.pagination.PageNumberPagination',),
 }
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
-
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
