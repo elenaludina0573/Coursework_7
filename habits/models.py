@@ -26,7 +26,7 @@ class Habits(models.Model):
     action = models.CharField(max_length=100, verbose_name='Действие, которое надо сделать')
     duration = models.SmallIntegerField(verbose_name='Продолжительность в минутах')
     is_daily = models.BooleanField(default=False, choices=PERIOD_CHOICES, verbose_name='Периодичность')
-    is_good = models.BooleanField(default=False, verbose_name='Приятная', choices=IS_GOOD_CHOICES)
+    is_good = models.BooleanField(default=True, verbose_name='Приятная', choices=IS_GOOD_CHOICES)
     is_public = models.BooleanField(default=True, verbose_name='Публичная', choices=PUBLIC_CHOICES)
     related = models.ForeignKey('self', on_delete=models.SET_NULL, verbose_name='Связанная с другой привычкой', **NULLABLE)
     prize = models.CharField(max_length=100, verbose_name='Вознаграждение', **NULLABLE)
