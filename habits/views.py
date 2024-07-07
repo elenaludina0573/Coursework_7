@@ -10,7 +10,12 @@ from users.permissions import IsOwner
 class HabitsCreateAPIView(generics.CreateAPIView):
     serializer_class = HabitSerializer
     queryset = Habits.objects.all()
-    permission_classes = (IsAuthenticated, IsOwner )
+    permission_classes = (IsAuthenticated, IsOwner)
+
+    def perform_create(self, serializer):
+        habit = serializer.save()
+        habit.user = self.request.user
+        habit.save()
 
 
 class HabitsListAPIView(generics.ListAPIView):
@@ -37,3 +42,13 @@ class HabitsDestroyAPIView(generics.DestroyAPIView):
     queryset = Habits.objects.all()
     permission_classes = (IsAuthenticated, IsOwner)
 
+
+class HabitsPublicListAPIView(generics.ListAPIView):
+    serializer_class = HabitSerializer
+    queryset = Habits.objects.all()
+    permission_classes = (AllowAny, )
+    pagination_class = CustomPagination
+
+    def get_queryset(self):
+        queryset = self.queryset.filter(is_public=True)
+        return queryset
