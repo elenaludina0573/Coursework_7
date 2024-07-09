@@ -1,25 +1,3 @@
-from rest_framework.test import APITestCase
-from habits.models import Habits
-from users.models import User
-
-
-# class HabitsTestCase(APITestCase):
-#     def setUp(self):
-#         self.user = User.objects.create(tmail='admin1@localhost')
-#         self.habit = Habits.objects.create(owner=self.user)
-#         self.client.force_authenticate(user=self.user)
-#         self.url = '/api/habits/'
-#         self.data = {
-#             'owner': self.user.id,
-#             'place': 'home',
-#             'time': '12:00',
-#             'action': 'sleep',
-#             'duration': '120',
-#             'is_daily': True,
-#             'is_good': True,
-#             'is_public': True,
-#             'prize': 'money'
-
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
@@ -63,7 +41,6 @@ class HabitTestCase(APITestCase):
 
         response = self.client.post(url, data=data)
         data = response.json()
-        print(data)
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(data.get("owner"), self.user.pk)
@@ -85,7 +62,6 @@ class HabitTestCase(APITestCase):
         url = reverse("habits:habits_retrieve", args=(self.habit.pk,))
         response = self.client.get(url)
         data = response.json()
-        print(data)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(data.get("owner"), self.habit.owner.id)
@@ -109,7 +85,6 @@ class HabitTestCase(APITestCase):
         }
         response = self.client.put(url, data)
         data = response.json()
-        print(data)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(data.get("owner"), self.habit.owner.id)
@@ -124,7 +99,6 @@ class HabitTestCase(APITestCase):
 
         url = reverse("habits:habits_delete", args=(self.habit.pk,))
         response = self.client.delete(url)
-        print(response)
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 

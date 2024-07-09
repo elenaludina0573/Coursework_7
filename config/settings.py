@@ -119,11 +119,11 @@ SIMPLE_JWT = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'habits',
-        'USER': 'postgres',
-        'PASSWORD': 'Blev2011!&',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': os.getenv('POSTGRES_NAME'),
+        'USER': os.getenv('POSTGRES_USER'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+        'HOST': os.getenv('POSTGRES_HOST'),
+        'PORT': os.getenv('POSTGRES_PORT'),
     }
 }
 
@@ -187,7 +187,5 @@ CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 CELERY_BEAT_SCHEDULE = {
     'send_habit': {
         'task': 'habits.tasks.send_habit',  # Путь к задаче
-        'schedule': timedelta(minutes=1), }  # Расписание выполнения задачи (например, каждые 10 минут)
+        'schedule': timedelta(minutes=10), }  # Расписание выполнения задачи (например, каждые 10 минут)
     }
-CELERY_TASK_PROTOCOL = 1
-CELERY_IMPORTS = ['habits.tasks']
