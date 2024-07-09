@@ -185,7 +185,9 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 CELERY_BEAT_SCHEDULE = {
-    'check_user_activity': {
-        'task': 'users.tasks.check_user_activity',  # Путь к задаче
-        'schedule': timedelta(minutes=10), }  # Расписание выполнения задачи (например, каждые 10 минут)
+    'send_habit': {
+        'task': 'habits.tasks.send_habit',  # Путь к задаче
+        'schedule': timedelta(minutes=1), }  # Расписание выполнения задачи (например, каждые 10 минут)
     }
+CELERY_TASK_PROTOCOL = 1
+CELERY_IMPORTS = ['habits.tasks']
