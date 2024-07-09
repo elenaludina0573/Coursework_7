@@ -127,3 +127,9 @@ class HabitTestCase(APITestCase):
         print(response)
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    def test_list_public_habit(self):
+        """ Тестирование вывода публичных привычек """
+
+        response = self.client.get(reverse('habits:public_list'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
